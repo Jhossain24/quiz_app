@@ -67,12 +67,13 @@ class _QuizScreenState extends State<QuizScreen> {
       _currentIndex = 0;
       _score = 0;
       _answered = false;
-      _loadQuestions();
+      _loadQuestions(); // Load new questions
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    // Show loading screen
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(title: const Text('Quiz App')),
@@ -89,6 +90,7 @@ class _QuizScreenState extends State<QuizScreen> {
       );
     }
 
+    // Show error screen
     if (_errorMessage != null) {
       return Scaffold(
         appBar: AppBar(title: const Text('Quiz App')),
@@ -110,6 +112,7 @@ class _QuizScreenState extends State<QuizScreen> {
       );
     }
 
+    // Show quiz completed screen
     if (_currentIndex >= _questions.length) {
       return Scaffold(
         appBar: AppBar(title: const Text('Quiz Completed')),
@@ -143,6 +146,7 @@ class _QuizScreenState extends State<QuizScreen> {
       );
     }
 
+    // Show quiz screen
     Question currentQuestion = _questions[_currentIndex];
 
     return Scaffold(
@@ -160,6 +164,7 @@ class _QuizScreenState extends State<QuizScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Progress indicator
             Text(
               'Question ${_currentIndex + 1} of ${_questions.length}',
               textAlign: TextAlign.center,
@@ -167,6 +172,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             const SizedBox(height: 20),
 
+            // Question text
             Card(
               elevation: 4,
               child: Padding(
@@ -183,6 +189,7 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
             const SizedBox(height: 30),
 
+            // Answer buttons
             ...currentQuestion.allAnswers.map((answer) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -204,6 +211,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
             const Spacer(),
 
+            // Next button
             if (_answered)
               ElevatedButton(
                 onPressed: _nextQuestion,
